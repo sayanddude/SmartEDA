@@ -28,12 +28,6 @@ Nowadays, we see applications of Data Science almost everywhere. Some of the wel
 
 @eda:4 introduced EDA in the context of data mining and resampling with focus on pattern recognition, cluster detection and variable selection. Over the years, EDA has been used various applications across different domains such as geoscience research [@eda:7], auditing [@eda:8], game-based assessments [@eda:9], clinical study groups [@eda:10] and more.
 
-![The CRISP-DM Process Model for Data Mining @crisp:1.](paper_figures/Fig1.png){width="5in"}
-
-EDA is a very important component of the Data Mining process as per the industry standard CRSP-DM framework. The CRISP-DM stands for "CRoss Industry Standard Process for Data Mining" [@crisp:1]. Data mining is a creative process that required a different set of skills and knowledge. However, earlier there was a lack of any standard framework for Data mining projects, which esured that the sucess/failure of a data mining project is highly dependent on the skill-set of a particular individual or a team that is executing the project. To address this need, @crisp:1 proposed the CRISP-DM process mopdel that  is a framework for executing any data mining project. The CRISP-DM framework is independent of the tools used and the industry sector. 
-
-Figure 1 shows the different components (viz. Business understanding, Data understanding, Data preparation, Modeling, Evaluation and Deployment) of the CRISP-DM process model for data mining. It is a cyclic process where there is a feedback loop between some components. We can see that the "Data Understanding" is a very important component which affects the "Business Understanding" as well. EDA helps in Data understanding and thus directly impacts the quality and success of a data mining project.
-
 EDA can be categorized into Descriptive statistical techniques and graphical techniques [@eda:11]. The first category encompasses various univariate and multivariate statistical techniques whereas the second category comprises the various visualization techniques. Both of these techniques are used to explore the data, understand the patterns in the data, understand the existing relationships between the variables and most importantly, generate data drive insights that can be used by the business stakeholders. However, EDA requires a lot of manual effort and also a substantial amount of coding effort in statistical computing packages such as R @Venables+Ripley:2002. There is a huge need for automation of the EDA process and this motivated us to develop the SmartEDA package and come up with this paper. 
 
 
@@ -44,13 +38,13 @@ The SmartEDA package automatically select the variables and performs the related
 
 Some of the most important advantages of the SmartEDA package are that it can help in applying end to end EDA process without having to remember the different R package names, write lengthy R scripts, no manual effort required to prepare the EDA report and finally, automatically categorize the variables  into the right data type (viz. Character, Numeric, Factor and more) based on the input data. Thus, the main benefits of SmartEDA are in development time savings, less error percentage and reproducibility. 
 
-Moreover, the SmartEDA package has customized options for the data.table package such as (1) Generate appropriate summary statistics depending on the data type, (2) Data reshaping using data.table.dcast(), (3) Filter rows/cases where conditions are true. Options to apply filters at variable level or complete data set like base subsetting and (4) Options to calculate measures of central tendency (like Mean, Median, Mode, etc.), measures of variance/dispersion (like Standard Deviation, Variance, etc.), Count, Proportions, Quantiles, IQR, Percentages of Shares (PS) for numerical data. Figure 2 summarizes the various functionalities of SmartEDA. 
+Moreover, the SmartEDA package has customized options for the data.table package such as (1) Generate appropriate summary statistics depending on the data type, (2) Data reshaping using data.table.dcast(), (3) Filter rows/cases where conditions are true. Options to apply filters at variable level or complete data set like base subsetting and (4) Options to calculate measures of central tendency (like Mean, Median, Mode, etc.), measures of variance/dispersion (like Standard Deviation, Variance, etc.), Count, Proportions, Quantiles, IQR, Percentages of Shares (PS) for numerical data. Figure 1 summarizes the various functionalities of SmartEDA. 
 
-![The various functionalities of SmartEDA.](paper_figures/Fig2.png){width="5in"}
+![The various functionalities of SmartEDA.](paper_figures/Fig1.png){width="5in"}
 
 
 # Illustration
-We apply SmartEDA to generate insights on the sales of Child car seats at different locations. We will use the "Carseats" data available in the ISLR package \citep{pack:7} that contains 11 variables such as unit sales in each locations (Sales), price charged by competitors (CompPrice), community income level, (Income) population size in region (population), advertising budget (Advertising), price company charges for car seats in each site (Price), quality of shelving location (ShelveLoc), average age of local population (Age), education level at each location (Education), urban/rural location indicator (Urban) and US store/non-US store indicator (US).
+We apply SmartEDA to generate insights on the sales of Child car seats at different locations. We will use the "Carseats" data available in the ISLR package [@pack:7] that contains 11 variables such as unit sales in each locations (Sales), price charged by competitors (CompPrice), community income level, (Income) population size in region (population), advertising budget (Advertising), price company charges for car seats in each site (Price), quality of shelving location (ShelveLoc), average age of local population (Age), education level at each location (Education), urban/rural location indicator (Urban) and US store/non-US store indicator (US).
 
 We will now use SmartEDA for understanding the dimensions of the dataset, variable names, overall missing summary and data types of each variables.
 
@@ -82,15 +76,16 @@ Now let us look at the summary of the numerical/integer variables such as Advert
 > ExpNumStat(Carseats,by="A",gp=NULL,Qnt=NULL,MesofShape=2,
 +            Outlier=FALSE,round=2,Nlim=10)
 #Output- Summary of numerical variables of Carseats data
-        Vname Group  TN nNeg nZero nPos NegInf PosInf NA_Value Per_of_Missing       sum min   ....
-4 Advertising   All 400    0   144  256      0      0        0              0   2654.00   0  
-7         Age   All 400    0     0  400      0      0        0              0  21329.00  25  
-2   CompPrice   All 400    0     0  400      0      0        0              0  49990.00  77 
-3      Income   All 400    0     0  400      0      0        0              0  27463.00  21 
-5  Population   All 400    0     0  400      0      0        0              0 105936.00  10 
-6       Price   All 400    0     0  400      0      0        0              0  46318.00  24 
-1       Sales   All 400    0     1  399      0      0        0              0   2998.53   0 
-# ....  with 8 more columns such as max, mean, median, SD, CV, IQR, Skewness and Kurtosis.
+        Vname Group  TN nNeg nZero nPos NegInf PosInf NA_Value   ....
+4 Advertising   All 400    0   144  256      0      0        0            
+7         Age   All 400    0     0  400      0      0        0                
+2   CompPrice   All 400    0     0  400      0      0        0              
+3      Income   All 400    0     0  400      0      0        0              
+5  Population   All 400    0     0  400      0      0        0             
+6       Price   All 400    0     0  400      0      0        0              
+1       Sales   All 400    0     1  399      0      0        0              
+# ....  with 10 more columns such as max, mean, median, 
+# ...   SD, CV, IQR, Skewness, Kurtosis and more.
 ```
 We will now check for the summary of categorical variables namely, ShelveLoc, Urban and US.
 
@@ -110,11 +105,12 @@ We will now check for the summary of categorical variables namely, ShelveLoc, Ur
 10        US  TOTAL       400      NA         NA
 ```
 
-We can visualize the different graphical representations of the data using the SmartEDA package. Figures 3, 4, 5, 6, 7 and 8 show the different graphical visualizations (such as Scatter plot, Density plot, Bar plot, Box plot, Normality plot and Co-ordinate plot) applied on the "Carseats" dataset.
+We can visualize the different graphical representations using the SmartEDA package when applied on the "Carseats" dataset. Figure 2- (a), (b), (c), (d), (e) and (f) show the different graphical visualizations namely, Scatter plot, Density plot, Bar plot, Box plot, Normality plot and Co-ordinate plot respectively.
 
 ```r
 # Scatter plot
-> ExpNumViz(Carseats,gp="Price",nlim=4,fname=NULL,col=NULL,Page=NULL,sample=1) 
+> ExpNumViz(Carseats,gp="Price",nlim=4,fname=NULL,
++                    col=NULL,Page=NULL,sample=1) 
 # Density plot
 > ExpNumViz(Carseats,gp=NULL,nlim=10,sample=1) 
 # Bar plot
@@ -125,25 +121,25 @@ We can visualize the different graphical representations of the data using the S
 > ExpOutQQ(Carseats,nlim=10,sample=1)
 # Co-ordinate plots
 > ExpParcoord(Carseats,Group="ShelveLoc",Stsize=c(10,15,20),Nvar=
-+                 c("Price","Income","Advertising","Population","Age","Education"))
++     c("Price","Income","Advertising","Population","Age","Education"))
 ```
 
-![Scatter plot of Price vs. Population.](paper_figures/Fig3a.png){width="5in"}
+![Graphical representations of the Carseats data using SmartEDA.](paper_figures/Fig2.png){width="5in"}
 
-![Density plot for Income.](paper_figures/Fig3b.png){width="5in"}
 
-![Bar plot for Urban.](paper_figures/Fig4a.png){width="5in"}
 
-![Box plot for Population vs. US.](paper_figures/Fig4b.png){width="5in"}
+# Comparison with other R Packages 
 
-![Normality plot for Sales.](paper_figures/Fig5a.png){width="5in"}
+Figure 9 compares the SmartEDA package [@smartEDA] with other similar packages available in CRAN for exploratory data analysis viz. dlookr [@pack:1], DataExplorer [@pack:2], Hmisc [@pack:3], exploreR [@pack:4], RtutoR [@pack:5] and summarytools [@pack:6]. The metric for evaluation is the availability of various desired features for performing an Exploratory data analysis such as (a) Describe basic information for input data, (b) Function to provide, (c) summary statistics for all numerical variables, (d) Function to provide plots for all numerical variables, (e) Function to provide summary statistics for all character or categorical variables, (f) Function to provide plots for all character or categorical variables, (g) Customized summary statistics- extension to data.table package, (h) Normality/ Co-ordinate plots, (i) Feature binarization/ binning, (j) Standardize/ missing imputation/ diagnose outliers and (k) HTML report using rmarkdown/ Shiny.
 
-![Co-ordinate plot for Price, Income, Advertising, Population, Age and Education with respect to the Shelving location.](paper_figures/Fig5b.png){width="5in"}
+![Comparison of SmartEDA with available R packages.](paper_figures/Fig3.png){width="5in"}
 
+
+We can see in Figure 3 that the current version of SmartEDA has almost all the desired characteristics mentioned above except the points (h) and (i) i.e. normality plots and feature binning respectively. These two features would be incorporated in the next release and we are currently working on it. However, the unique and the strongest functionality provided by SmartEDA is point (f) i.e. extension to data.table package which none of the other packages provide. Thus, SmartEDA does add value given the importance and popularity of data.table among R users for analyzing large datasets. Figure 9 shows that SmartEDA is better than almost all the other packages available in CRAN. The closest competitor to SmartEDA seems to be the DataExplorer package but it doesn't possess the (b) and (f) features viz. Function to provide summary statistics for all numerical variables and extension to data.table package respectively. Also, another distinctive feature that SmartEDA has but none of the other similar packages have is the ability to export all the charts in a pdf.
 
 # Conclusion
 
-The contribution of this paper is in development of a new package in R i.e. SmartEDA for automated Exploratory Data Analysis. SmartEDA package helps in implementing the complete Exploratory Data Analysis just by running the function instead of writing lengthy R code. The users of SmartEDA can automate the entire EDA process on any dataset with easy to implements functions and export EDA reports that follows the industry and academia best practices. The SmartEDA can provide summary statistics along with graphical plots for both numerical and categorical variables. It also provides extension to data.table package which none of the other packages available in CRAN provides. Overall, the main benefits of SmartEDA are in development time savings, less error percentage and reproducibility.  As of May 2019, the SmartEDA package has more than 4400+ downloads, which indicates its acceptability and maturity in the Statistics and the Machine learning community.
+The contribution of this paper is in development of a new package in R i.e. SmartEDA for automated Exploratory Data Analysis. SmartEDA package helps in implementing the complete Exploratory Data Analysis just by running the function instead of writing lengthy R code. The users of SmartEDA can automate the entire EDA process on any dataset with easy to implements functions and export EDA reports that follows the industry and academia best practices. The SmartEDA can provide summary statistics along with graphical plots for both numerical and categorical variables. It also provides extension to data.table package which none of the other packages available in CRAN provides. Overall, the main benefits of SmartEDA are in development time savings, less error percentage and reproducibility.  As of July 2019, the SmartEDA package has more than 5000+ downloads, which indicates its acceptability and maturity in the Statistics and the Machine learning community.
 
 
 
